@@ -10,7 +10,7 @@ USE cars_db;
 CREATE TABLE cars (
   id int NOT NULL AUTO_INCREMENT,
   car_name varchar(255) NOT NULL,
-  devoured boolean NOT NULL
+  devoured boolean NOT NULL,
   PRIMARY KEY (id)
 );
 
