@@ -25,22 +25,38 @@ $(function() {
         );
     });
 
-    //Click event for "sell me" button.
-    $(".change-sell").on("click", function(event) {
+    //Click event to throw away/delete car.
+    $(".delete-car").on("click", function(event) {
         var id = $(this).data("id");
-        var newSell = $(this).data("newsell");
 
-        var newSellState = {
+        // Send the DELETE request using ajax.
+        $.ajax("/api/cars/" + id, {
+            type: "DELETE",
+        }).then(
+            function() {
+                console.log("deleted car", id);
+                // Reload the page to get the updated list
+                location.reload();
+            }
+        );
+    });
+
+    //Click event for "Done me" button.
+    $(".change-done").on("click", function(event) {
+        var id = $(this).data("id");
+        var newDone = $(this).data("newdone");
+
+        var newDoneState = {
             sell: "true"
         };
 
         // Send the PUT request using ajax.
         $.ajax("/api/cars/" + id, {
             type: "PUT",
-            data: newSellState
+            data: newDoneState
         }).then(
             function() {
-                console.log("changed sell to", newSell);
+                console.log("changed done to", newDone);
                 // Reload the page to get the updated list
                 location.reload();
             }

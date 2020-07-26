@@ -1,18 +1,20 @@
-//controller setup import express 
+//Require express
 var express = require("express");
+
 var router = express.Router();
 
+// Import the model (car.js) to use its database functions.
 var car = require("../models/car.js");
 
-//routes and set up begins/ logic 
-//GET route to get cars from db.
+// Create all our routes and set up logic within those routes where required.
+//GET route to get cars from database.
 router.get("/", function(req, res) {
     car.all(function(data) {
-        var carObject = {
+        var hbsObject = {
             cars: data
         };
-        console.log(carObject);
-        res.render("index", carObject);
+        console.log(hbsObject);
+        res.render("index", hbsObject);
     });
 });
 
@@ -23,16 +25,16 @@ router.post("/api/cars", function(req, res) {
     ], [
         req.body.car_name, req.body.sell
     ], function(result) {
-        //send back ID to the new quote
-        res.json({ id: result.insertID })
+        // Send back the ID of the new quote
+        res.json({ id: result.insertId });
     });
 });
 
-//PUT route to update car sold state.
+//PUT route to update car sell state.
 router.put("/api/cars/:id", function(req, res) {
-    var conditon = "id = " + req.params.id;
+    var condition = "id = " + req.params.id;
 
-    console.log("condition", conditon);
+    console.log("condition", condition);
 
     car.update({
         sell: req.body.sell
@@ -45,5 +47,6 @@ router.put("/api/cars/:id", function(req, res) {
         }
     });
 });
-// export routes for server.js
-module.export = router;
+
+// Export routes for server.js to use.
+module.exports = router;

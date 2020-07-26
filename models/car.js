@@ -10,17 +10,17 @@ var car = {
     },
 
     //create function to add a car
-    create: function(colum, values, cb) {
-        orm.create("cars", colum, values, function(res) {
+    create: function(cols, vals, cb) {
+        orm.create("cars", cols, vals, function(res) {
             cb(res);
         });
     },
 
     //update function 
-    update: function(updateObject, condition, cb) {
-        orm.update("cars", updateObject, condition, function(res) {
+    update: function(objColVals, condition, cb) {
+        orm.update("cars", objColVals, condition, function(res) {
             cb(res)
-        })
+        });
     }
 };
 

@@ -1,67 +1,98 @@
-var connection = require("./connection.js")
+//Need to require connection.js so that the ORM can communicate/talk with the database.
+var connection = require("./connection.js");
 
-function questionMarks(Number) {
-    const arr = [];
-    for (var i = 0; i < Number; i++) {
+// Helper function for SQL syntax.
+// Let's say we want to pass 3 values into the mySQL query.
+// In order to write the query, we need 3 question marks.
+// The above helper function loops through and creates an array of question marks - ["?", "?", "?"] - and turns it into a string.
+// ["?", "?", "?"].toString() => "?,?,?";
+function printQuestionMarks(num) {
+    var arr = [];
+
+    for (var i = 0; i < num; i++) {
         arr.push("?");
-        questionMarks
     }
-    return arr.string()
+
+    return arr.toString();
 }
 
-//for loop key/value
-function carUpdate(cu) {
-    var arr = []
-        // skip hidden properties
-    for (var key in cu) {
-        var value = cu[key];
-        if (Object.hasOwnProperty.call(cu, key)) {
-            //string with spacesm, add quotations
+// Helper function to convert object key/value pairs to SQL syntax
+function objToSql(ob) {
+    var arr = [];
+
+    // loop through the keys and push the key/value as a string int arr
+    for (var key in ob) {
+        var value = ob[key];
+        // check to skip hidden properties
+        if (Object.hasOwnProperty.call(ob, key)) {
             if (typeof value === "string" && value.indexOf(" ") >= 0) {
-                arr.push(key + "=" + value);
+                value = "'" + value + "'";
             }
+            arr.push(key + "=" + value);
         }
     }
-    return arr.String();
+
+    // translate array of strings to a single comma-separated string
+    return arr.toString();
 }
 
 
-var orm = { //object with these function that have paramaters 
+//Object for all our SQL statement functions.
+//Create the methods that will execute the necessary MySQL commands in the controllers.
+//These are the methods you will need to use in order to retrieve and store data in your database.
+var orm = {
+    //Select all function/query
     all: function(tableInput, cb) {
-        var queryString = "SELECT * FROM " + tableInput + " ; ";
+        var queryString = "SELECT * FROM " + tableInput + ";";
         connection.query(queryString, function(err, result) {
-            if (err) throw err;
+            if (err) {
+                throw err;
+            }
             cb(result);
-            console.log(result);
         });
     },
-    create: function(table, colum, value, cb) {
+
+    //Create function/query
+    create: function(table, cols, vals, cb) {
         var queryString = "INSERT INTO " + table;
+
         queryString += " (";
-        queryString += colum.toString();
+        queryString += cols.toString();
         queryString += ") ";
         queryString += "VALUES (";
-        queryString += questionMarks(value.length);
+        queryString += printQuestionMarks(vals.length);
         queryString += ") ";
-        connection.query(queryString, value, function(err, result) {
-            if (err) throw err;
+
+        console.log(queryString);
+
+        connection.query(queryString, vals, function(err, result) {
+            if (err) {
+                throw err;
+            }
+
             cb(result);
-            console.log(result);
         });
     },
-    update: function(table, updateObject, condition, cb) {
+
+    //Update function/query.
+    update: function(table, objColVals, condition, cb) {
         var queryString = "UPDATE " + table;
-        queryString += " SET  ";
-        queryString += carUpdate(updateObject);
+
+        queryString += " SET ";
+        queryString += objToSql(objColVals);
         queryString += " WHERE ";
         queryString += condition;
+
+        console.log(queryString);
         connection.query(queryString, function(err, result) {
-            if (err) throw err;
+            if (err) {
+                throw err;
+            }
+
             cb(result);
-            console.log(result);
         });
     },
+};
 
-
-}
+//Export the orm object.
 module.exports = orm;

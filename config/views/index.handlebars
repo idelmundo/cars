@@ -31,10 +31,10 @@
         <div class="card-header bg-primary text-white">
          Cars
         </div>
-        <!--Div to hold cars that have not been devoured yet-->
+        <!--Div to hold cars that have not been sell yet-->
         <div class="card-body">
               {{#each cars}}
-                {{#unless devoured}}
+                {{#unless sell}}
                   {{> cars/car-block sell=false}}
                 {{/unless}}
               {{/each}}
@@ -43,11 +43,11 @@
     </div>
 
     <div class="col-md-6 mt-4">
-      <div class="card devoured-card">
-        <div class="card-header text-white" id="devoured-card-header">
+      <div class="card sell-card">
+        <div class="card-header text-white" id="sell-card-header">
          sell cars
         </div>
-        <!--When a car has been devoured, put car here-->
+        <!--When a car has been sold, put car here-->
         <div class="card-body">
           {{#each cars}}
               {{#if sell}}
