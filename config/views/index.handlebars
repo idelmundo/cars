@@ -1,72 +1,50 @@
+<div class="jumbotron bg-info text-center">
+  <h1>Throw the Pitch!</h1>
+</div>
 <div class="container">
-  <div class="jumbotron text-center bg-primary text-white">
-    <h1 class="display-4" id="app-title">Cool Car <img src="/db/public/assets/img/rx7.jpg"></h1>
-    <p class="lead">Welcome to Cool Cars.</p>
-  </div>
-
   <div class="row">
     <div class="col-md-12">
-      <div class="card border border-primary">
-        <div class="card-header bg-primary text-white">
-         What car would you like to buy?
+      <h2>Add a new pitch</h2>
+      <form class="create-form">
+        <div class="form-group">
+          <label for="ca">Pitch Name:</label>
+          <input type="text" id="ca" name="name">
         </div>
-        <!--Create/add car form-->
-        <div class="card-body">
-          <form class="create-form">
-            <div class="form-group">
-              <label for="car">Place order here:</label>
-              <input type="text" class="form-control" id="carToGo" placeholder="">
-            </div>
-            <button class="btn btn-primary" type="submit">Place order</button>
-          </form>
+        <div class="form-group">
+          <label for="slee">throw?</label><br>
+          <input type="radio" name="throw" value="0" checked> Not Thrown<br>
+          <input type="radio" name="throw" value="1"> Thrown!
         </div>
-      </div>
+        <button type="submit">Add Pitch</button>
+      </form>
     </div>
   </div>
-
-
-  <div class="row mt-4">
-    <div class="col-md-6 mt-4">
-      <div class="card border border-primary">
-        <div class="card-header bg-primary text-white">
-         Cars
-        </div>
-        <!--Div to hold cars that have not been sell yet-->
-        <div class="card-body">
-              {{#each cars}}
-                {{#unless sell}}
-                  {{> cars/car-block sell=false}}
-                {{/unless}}
-              {{/each}}
-        </div>
-      </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2>Pitches Ready to Throw!</h2>
+      <ul>
+        {{#each pitches}}
+        {{#unless thrown}}
+        {{> baseball/baseball-block thrown=false}}
+        {{!-- {{this.pitch_type}} --}}
+        {{/unless}}
+        {{/each}}
+      </ul>
     </div>
-
-    <div class="col-md-6 mt-4">
-      <div class="card sell-card">
-        <div class="card-header text-white" id="sell-card-header">
-         sell cars
-        </div>
-        <!--When a car has been sold, put car here-->
-        <div class="card-body">
-          {{#each cars}}
-              {{#if sell}}
-                {{> cars/car-sell sell=true}}
-              {{/if}}
-          {{/each}}
-        </div>
-      </div>
+    <div class="col-md-6">
+      <h2>Pitches Thrown!</h2>
+      <ul>
+        {{#each pitches}}
+        {{#if thrown}}
+        {{!-- {{this.pitch_type}} --}}
+        {{> baseball/baseball-block2 thrown=true}}
+        {{/if}}
+        {{/each}}
+      </ul>
     </div>
   </div>
-
-  <!--Footer-->
-  <div class="row mt-5">
-    <div class="col-md-12">
-      <div class="card footer">
-        <div class="card-body footer-body text-white">
-          <h4 class="card-title text-white">Cool Car</h5>
-          <br>
-        </div>
-      </div>
-    </div>
 </div>
+Collapse
+
+
+

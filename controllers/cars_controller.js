@@ -9,7 +9,7 @@ var car = require("../models/car.js");
 // Create all our routes and set up logic within those routes where required.
 //GET route to get cars from database.
 router.get("/", function(req, res) {
-    car.all(function(data) {
+    car.selectAll(function(data) {
         var hbsObject = {
             cars: data
         };
@@ -20,7 +20,7 @@ router.get("/", function(req, res) {
 
 //POST route to create/add a car.
 router.post("/api/cars", function(req, res) {
-    car.create([
+    car.insertOne([
         "car_name", "sell"
     ], [
         req.body.car_name, req.body.sell
@@ -36,7 +36,7 @@ router.put("/api/cars/:id", function(req, res) {
 
     console.log("condition", condition);
 
-    car.update({
+    car.updateOne({
         sell: req.body.sell
     }, condition, function(result) {
         if (result.changedRows == 0) {

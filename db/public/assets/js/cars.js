@@ -1,62 +1,42 @@
 // Make sure we wait to attach our handlers until the DOM is fully loaded.
 $(function() {
-    //Click event for adding a car.
+    $(".sell").on("click", function(event) {
+        var id = $(this).data("id");
+        var newSell = $(this).data("newSell");
+
+        var newSoldState = {
+            sell: true
+        };
+
+        // Send the PUT request.
+        $.ajax("/api/cars/" + id, {
+            type: "PUT",
+            data: newSoldState
+        }).then(
+            function() {
+                console.log("changed sold to", newSell);
+                // Reload the page to get the updated list
+                location.reload();
+            }
+        );
+    });
+
     $(".create-form").on("submit", function(event) {
         // Make sure to preventDefault on a submit event.
         event.preventDefault();
 
-        //Grab car name from form field.
-        //When user submits car name, set sell state to false.
-        var newCar = {
-            car_name: $("#carToGo").val().trim(),
-            sell: 0
+        var newCat = {
+            name: $("#ca").val().trim(),
+            sleepy: $("[name=sleepy]:checked").val().trim()
         };
 
-        // Send the POST request using ajax.
-        $.ajax("/api/cars", {
+        // Send the POST request.
+        $.ajax("/api/cats", {
             type: "POST",
-            data: newCar
+            data: newCat
         }).then(
             function() {
-                console.log("created new car");
-                // Reload the page to get the updated list
-                location.reload();
-            }
-        );
-    });
-
-    //Click event to throw away/delete car.
-    $(".delete-car").on("click", function(event) {
-        var id = $(this).data("id");
-
-        // Send the DELETE request using ajax.
-        $.ajax("/api/cars/" + id, {
-            type: "DELETE",
-        }).then(
-            function() {
-                console.log("deleted car", id);
-                // Reload the page to get the updated list
-                location.reload();
-            }
-        );
-    });
-
-    //Click event for "Done me" button.
-    $(".change-done").on("click", function(event) {
-        var id = $(this).data("id");
-        var newDone = $(this).data("newdone");
-
-        var newDoneState = {
-            sell: "true"
-        };
-
-        // Send the PUT request using ajax.
-        $.ajax("/api/cars/" + id, {
-            type: "PUT",
-            data: newDoneState
-        }).then(
-            function() {
-                console.log("changed done to", newDone);
+                console.log("created new cat");
                 // Reload the page to get the updated list
                 location.reload();
             }

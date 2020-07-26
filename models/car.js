@@ -3,22 +3,22 @@ var orm = require("../config/orm.js")
 
 var car = {
     //Select all cars from database.
-    all: function(cb) {
-        orm.all("cars", function(res) {
+    selectAll: function(cb) {
+        orm.selectAll("cars", function(res) {
             cb(res);
         });
     },
 
     //create function to add a car
-    create: function(cols, vals, cb) {
-        orm.create("cars", cols, vals, function(res) {
+    insertOne: function(cols, vals, cb) {
+        orm.insertOne("cars", cols, vals, function(res) {
             cb(res);
         });
     },
 
     //update function 
-    update: function(objColVals, condition, cb) {
-        orm.update("cars", objColVals, condition, function(res) {
+    updateOne: function(objColVals, condition, cb) {
+        orm.updateOne("cars", objColVals, condition, function(res) {
             cb(res)
         });
     }
