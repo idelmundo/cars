@@ -25,7 +25,7 @@ app.set("view engine", "handlebars");
 // Import routes and give the server access to them.
 var routes = require("./controllers/cars_controller.js");
 
-// app.use(routes);  // not sure why this is giving me an error when i run server.js
+app.use(routes);
 
 //App is listening...
 app.listen(PORT, function() {
