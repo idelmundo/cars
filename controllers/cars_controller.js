@@ -31,7 +31,7 @@ router.post("/api/cars", function(req, res) {
 });
 
 //PUT route to update car sell state.
-router.put("/api/cars/:id", function(req, res) {
+router.put("/api/newCar/:id", function(req, res) {
     var condition = "id = " + req.params.id;
 
     console.log("condition", condition);

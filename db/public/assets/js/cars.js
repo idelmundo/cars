@@ -2,14 +2,14 @@
 $(function() {
     $(".sell").on("click", function(event) {
         var id = $(this).data("id");
-        var newSell = $(this).data("newSell");
+        var newSell = $(this).data("newsell");
 
         var newSoldState = {
             sell: true
         };
 
         // Send the PUT request.
-        $.ajax("/api/cars/" + id, {
+        $.ajax("/api/newCar/" + id, {
             type: "PUT",
             data: newSoldState
         }).then(
@@ -25,18 +25,18 @@ $(function() {
         // Make sure to preventDefault on a submit event.
         event.preventDefault();
 
-        var newCat = {
-            name: $("#ca").val().trim(),
-            sleepy: $("[name=sleepy]:checked").val().trim()
+        var newSell = {
+            car_name: $("#ca").val().trim(),
+            sell: $("[name=sell]:checked").val().trim()
         };
-
-        // Send the POST request.
-        $.ajax("/api/cats", {
+        console.log(newSell)
+            // Send the POST request.
+        $.ajax("/api/cars", {
             type: "POST",
-            data: newCat
+            data: newSell
         }).then(
             function() {
-                console.log("created new cat");
+                console.log("created new sell");
                 // Reload the page to get the updated list
                 location.reload();
             }
