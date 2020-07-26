@@ -5,13 +5,14 @@ var router = express.Router();
 
 // Import the model (car.js) to use its database functions.
 var car = require("../models/car.js");
+const { json } = require("express");
 
 // Create all our routes and set up logic within those routes where required.
 //GET route to get cars from database.
 router.get("/", function(req, res) {
     car.selectAll(function(data) {
         var hbsObject = {
-            cars: data
+            car: data
         };
         console.log(hbsObject);
         res.render("index", hbsObject);
@@ -27,6 +28,7 @@ router.post("/api/cars", function(req, res) {
     ], function(result) {
         // Send back the ID of the new quote
         res.json({ id: result.insertId });
+        console.log(result)
     });
 });
 
