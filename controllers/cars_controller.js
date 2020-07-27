@@ -5,14 +5,14 @@ var router = express.Router();
 
 // Import the model (car.js) to use its database functions.
 var car = require("../models/car.js");
-const { json } = require("express");
+// const { json } = require("express");
 
 // Create all our routes and set up logic within those routes where required.
 //GET route to get cars from database.
 router.get("/", function(req, res) {
     car.selectAll(function(data) {
         var hbsObject = {
-            car: data
+            cars: data
         };
         console.log(hbsObject);
         res.render("index", hbsObject);
@@ -41,7 +41,7 @@ router.put("/api/newCar/:id", function(req, res) {
     car.updateOne({
         sell: req.body.sell
     }, condition, function(result) {
-        if (result.changedRows == 0) {
+        if (result.changedRows === 0) {
             // If no rows were changed, then the ID must not exist, so 404
             return res.status(404).end();
         } else {

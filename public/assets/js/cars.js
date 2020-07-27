@@ -35,9 +35,9 @@ $(function() {
             type: "POST",
             data: newSell
         }).then(
-            function() {
-                console.log("created new sell");
-                // Reload the page to get the updated list
+            function(data) {
+                console.log(data)
+                    // Reload the page to get the updated list
                 location.reload();
             }
         );

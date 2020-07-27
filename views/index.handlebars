@@ -24,10 +24,10 @@
       <h2>Car list </h2>
       <ul>
         {{#each cars}}
-        {{#unless sell}}
-       {{!-- {{> cars/car-block sell=false}} //reading directory --}}
-        {{this.car_name}}
-        {{/unless}}
+        {{#unless sell}} 
+       {{> cars/car-block sell=false}} 
+        {{!-- {{this.car_name}} --}}
+        {{/unless}} 
         {{/each}}
       </ul>
     </div>
@@ -35,11 +35,13 @@
       <h2>cars sell!</h2>
       <ul>
         {{#each cars}}
-        {{#if sell}}
-        {{this.car_name}}
-        {{!-- {{> cars/car-block sell=true}} --}}
+        {{#if sell}} 
+        <p>hi do you see me?</p>
+        {{!-- {{this.car_name}}  --}}
+        {{> cars/car-block sell=true}}
         {{/if}}
-        {{/each}}
+        {{/each}} 
+        <p> i think so </p>
       </ul>
     </div>
   </div>
