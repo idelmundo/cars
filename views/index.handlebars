@@ -1,5 +1,7 @@
-<div class="jumbotron bg-info text-center">
+<div class="jumbotron text-center">
   <h1>Car List!</h1>
+  <img src="/assets/img/rx7.jpg" class="img" alt="Responsive image">
+
 </div>
 <div class="container">
   <div class="row">
@@ -26,7 +28,6 @@
         {{#each cars}}
         {{#unless sell}} 
        {{> cars/car-block sell=false}} 
-        {{!-- {{this.car_name}} --}}
         {{/unless}} 
         {{/each}}
       </ul>
@@ -37,11 +38,9 @@
         {{#each cars}}
         {{#if sell}} 
         <p>hi do you see me?</p>
-        {{!-- {{this.car_name}}  --}}
         {{> cars/car-block sell=true}}
         {{/if}}
         {{/each}} 
-        <p> i think so </p>
       </ul>
     </div>
   </div>

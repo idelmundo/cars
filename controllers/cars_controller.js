@@ -5,7 +5,7 @@ var router = express.Router();
 
 // Import the model (car.js) to use its database functions.
 var car = require("../models/car.js");
-// const { json } = require("express");
+
 
 // Create all our routes and set up logic within those routes where required.
 //GET route to get cars from database.
